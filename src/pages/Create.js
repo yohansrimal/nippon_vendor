@@ -225,9 +225,9 @@ const EditableTable = () => {
                   onChange={onGenderChange}
                   allowClear
                 >
-                  <Option value="male">male</Option>
-                  <Option value="female">female</Option>
-                  <Option value="other">other</Option>
+                  <Option value="0001">0001</Option>
+                  <Option value="0002">0002</Option>
+                  <Option value="0003">0003</Option>
                 </Select>
               </Form.Item>
               <Form.Item
