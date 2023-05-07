@@ -11,8 +11,13 @@ import {
   Button,
   Select,
   Tooltip,
+  Space,
 } from "antd";
-import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  DownloadOutlined,
+  PlusOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 
 const { Option } = Select;
 
@@ -255,10 +260,10 @@ const EditableTable = () => {
 
   return (
     <>
-      <Row>
-        <Col span={12} offset={6}>
+      <Row gutter={[0, 16]}>
+        <Col span={24}>
           <Row>
-            <Col span={8}>
+            <Col>
               <Form
                 name="basic"
                 labelCol={{ span: 8 }}
@@ -276,7 +281,7 @@ const EditableTable = () => {
                 </Form.Item>
               </Form>
             </Col>
-            <Col span={8} offset={8}>
+            <Col span={6} offset={2}>
               <Form.Item name="plant" label="Plant" rules={[{}]}>
                 <Select
                   placeholder="Select Plant"
@@ -313,10 +318,8 @@ const EditableTable = () => {
             </Col>
           </Row>
         </Col>
-      </Row>
 
-      <Row>
-        <Col span={12} offset={6}>
+        <Col span={24}>
           <Form form={form} component={false}>
             <Table
               components={{
@@ -331,6 +334,18 @@ const EditableTable = () => {
               pagination={false}
             />
           </Form>
+        </Col>
+
+        <Col span={24}>
+          <div style={{ textAlign: "right" }}>
+            <Space direction="vertical">
+              <Space wrap>
+                <Button type="primary">Create</Button>
+                <Button>Update</Button>
+                <Button>Cancel</Button>
+              </Space>
+            </Space>
+          </div>
         </Col>
       </Row>
     </>
