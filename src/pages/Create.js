@@ -59,6 +59,7 @@ const EditableTable = () => {
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       quantity: 2,
+      uom: "KG",
     },
     {
       key: 2,
@@ -67,6 +68,7 @@ const EditableTable = () => {
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       quantity: 2,
+      uom: "TON",
     },
     {
       key: 3,
@@ -75,6 +77,7 @@ const EditableTable = () => {
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       quantity: 12,
+      uom: "KG",
     },
     {
       key: null,
@@ -165,6 +168,12 @@ const EditableTable = () => {
     {
       title: "Quantity",
       dataIndex: "quantity",
+      width: "5%",
+      editable: true,
+    },
+    {
+      title: "UOM",
+      dataIndex: "uom",
       width: "5%",
       editable: true,
     },

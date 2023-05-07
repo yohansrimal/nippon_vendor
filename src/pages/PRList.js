@@ -152,12 +152,13 @@ const PRList = () => {
               display: "flex",
             }}
           >
-            <div style={{ marginRight: "1.5rem" }}>
+            <div style={{ marginRight: "3rem" }}>
               <Search placeholder="Search" style={{ width: 200 }} />
             </div>
 
             <div>
-              Filter By Date: <RangePicker />
+              Filter By Date: {"\u00A0"}
+              <RangePicker />
             </div>
           </div>
         </Col>
