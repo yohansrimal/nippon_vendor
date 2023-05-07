@@ -10,7 +10,9 @@ import {
   Checkbox,
   Button,
   Select,
+  Tooltip,
 } from "antd";
+import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
@@ -51,28 +53,35 @@ const EditableTable = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState([
     {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
+      key: 1,
+      number: 1,
+      material_code: 3,
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      quantity: 2,
     },
     {
-      key: "2",
-      name: "Joe Black",
-      age: 42,
-      address: "London No. 1 Lake Park",
+      key: 2,
+      number: 2,
+      material_code: 4,
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      quantity: 2,
     },
     {
-      key: "3",
-      name: "Jim Green",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
+      key: 3,
+      number: 3,
+      material_code: 32,
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      quantity: 12,
     },
     {
-      key: "4",
-      name: "Jim Red",
-      age: 32,
-      address: "London No. 2 Lake Park",
+      key: null,
+      number: null,
+      material_code: null,
+      description: null,
+      quantity: null,
     },
   ]);
   const [editingKey, setEditingKey] = useState("");
@@ -86,6 +95,29 @@ const EditableTable = () => {
 
   const cancel = () => {
     setEditingKey("");
+  };
+
+  const addNewMaterial = () => {
+    const lastMaterialId = data[data.length - 2].key;
+
+    const emptyMaterialObj = data[data.length - 1];
+
+    let newMaterialId = lastMaterialId + 1;
+
+    let newArrayWithoutEmptyObj = data.slice(0, -1);
+
+    const newMaterial = {
+      key: newMaterialId,
+      number: newMaterialId,
+      material_code: null,
+      description: null,
+      quantity: 0,
+    };
+
+    newArrayWithoutEmptyObj.push(newMaterial);
+    newArrayWithoutEmptyObj.push(emptyMaterialObj);
+
+    setData(newArrayWithoutEmptyObj);
   };
 
   const save = async (key) => {
@@ -113,45 +145,71 @@ const EditableTable = () => {
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      width: "25%",
+      title: "No",
+      dataIndex: "number",
+      width: "10%",
       editable: false,
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      width: "15%",
+      title: "Material Code",
+      dataIndex: "material_code",
+      width: "10%",
       editable: true,
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      width: "40%",
+      title: "Description",
+      dataIndex: "description",
+      width: "30%",
+      editable: true,
+    },
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+      width: "5%",
       editable: true,
     },
     {
       title: "Action",
       dataIndex: "action",
+      width: "15%",
       render: (_, record) => {
         const editable = isEditing(record);
-        return editable ? (
+        return record.key === null ? (
           <span>
-            <a
-              href="javascript:void(0);"
-              onClick={() => save(record.key)}
-              style={{ marginRight: 8 }}
-            >
+            <Tooltip title="  Add New Material">
+              <Button
+                type="primary"
+                shape="circle"
+                icon={<PlusOutlined />}
+                onClick={addNewMaterial}
+              />
+            </Tooltip>
+          </span>
+        ) : editable ? (
+          <span>
+            <Button onClick={() => save(record.key)} style={{ marginRight: 8 }}>
               Save
-            </a>
+            </Button>
+
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a> Cancel</a>
+              <Button onClick={cancel}>Cancel</Button>
             </Popconfirm>
           </span>
         ) : (
-          <a disabled={editingKey !== ""} onClick={() => edit(record)}>
-            Edit
-          </a>
+          <>
+            <Button disabled={editingKey !== ""} onClick={() => edit(record)}>
+              Edit
+            </Button>
+            <Popconfirm title="Sure to delete?" onConfirm={cancel}>
+              <Button
+                danger
+                disabled={editingKey !== ""}
+                style={{ marginLeft: "0.5rem" }}
+              >
+                Delete
+              </Button>
+            </Popconfirm>
+          </>
         );
       },
     },
@@ -270,9 +328,7 @@ const EditableTable = () => {
               dataSource={data}
               columns={mergedColumns}
               rowClassName="editable-row"
-              pagination={{
-                onChange: cancel,
-              }}
+              pagination={false}
             />
           </Form>
         </Col>
