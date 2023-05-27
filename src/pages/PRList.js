@@ -11,6 +11,7 @@ import {
   Tag,
 } from "antd";
 import Search from "antd/es/input/Search";
+import { useNavigate } from "react-router-dom";
 
 const { RangePicker } = DatePicker;
 
@@ -76,6 +77,12 @@ const PRList = () => {
     },
   ]);
 
+  const navigation = useNavigate();
+
+  const navigateToUrl = () => {
+    navigation("/update");
+  };
+
   const columns = [
     {
       title: "",
@@ -121,7 +128,14 @@ const PRList = () => {
       title: "Action",
       dataIndex: "action",
       render: () => {
-        return <Button type="primary">View</Button>;
+        return (
+          <div>
+            <Button type="primary">View</Button>
+            <Button style={{ marginLeft: "1rem" }} onClick={navigateToUrl}>
+              Update
+            </Button>
+          </div>
+        );
       },
     },
   ];

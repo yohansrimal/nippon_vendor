@@ -3,6 +3,7 @@ import NavigationBar from "../components/Navigation/NavigationBar";
 import Home from "../pages/Home";
 import Create from "../pages/Create";
 import PRList from "../pages/PRList";
+import Update from "../pages/Update";
 
 function Layout({ children }) {
   return (
@@ -25,6 +26,7 @@ export default function AppRoutes() {
           <Route index element={<Home />} />
           <Route path="create" element={<Create />} />
           <Route path="view" element={<PRList />} />
+          <Route path="update" element={<Update />} />
         </Routes>
       </Layout>
     </BrowserRouter>
